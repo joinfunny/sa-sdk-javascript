@@ -83,7 +83,7 @@ class DataSend {
 
     return obj;
   }
-  getSendType(data) {
+  static getSendType(data) {
     var supportedSendTypes = ["image", "ajax", "beacon"];
     var sendType = supportedSendTypes[0];
     if (
