@@ -1,3 +1,4 @@
+ import utils from './utils'
  var store = sd.store = {
       requests: [],
       _sessionState: {},
@@ -32,9 +33,9 @@
       },
       toState: function(ds) {
         var state = null;
-        if (ds != null && _.isJSONString(ds)) {
+        if (ds != null && utils.isJSONString(ds)) {
           state = JSON.parse(ds);
-          this._state = _.extend(state);
+          this._state = utils.extend(state);
           if (state.distinct_id) {
             if (typeof(state.props) === 'object') {
               for (var key in state.props) {
@@ -46,16 +47,16 @@
             }
 
           } else {
-            this.set('distinct_id', _.UUID());
+            this.set('distinct_id', utils.UUID());
             sd.debug.distinct_id('1', ds);
           }
         } else {
-          this.set('distinct_id', _.UUID());
+          this.set('distinct_id', utils.UUID());
           sd.debug.distinct_id('2', ds);
         }
       },
       initSessionState: function() {
-        var ds = _.cookie.get('sensorsdata2015session');
+        var ds = utils.cookie.get('sensorsdata2015session');
         var state = null;
         if (ds !== null && (typeof(state = JSON.parse(ds)) === 'object')) {
           this._sessionState = state || {};
@@ -77,18 +78,18 @@
       },
       setSessionProps: function(newp) {
         var props = this._sessionState;
-        _.extend(props, newp);
+        utils.extend(props, newp);
         this.sessionSave(props);
       },
       setSessionPropsOnce: function(newp) {
         var props = this._sessionState;
-        _.coverExtend(props, newp);
+        utils.coverExtend(props, newp);
         this.sessionSave(props);
       },
       setProps: function(newp, isCover) {
         var props = {};
         if (!isCover) {
-          props = _.extend((this._state.props || {}), newp);
+          props = utils.extend((this._state.props || {}), newp);
         } else {
           props = newp;
         }
@@ -101,7 +102,7 @@
       },
       setPropsOnce: function(newp) {
         var props = this._state.props || {};
-        _.coverExtend(props, newp);
+        utils.coverExtend(props, newp);
         this.set('props', props);
       },
       clearAllProps: function(arr) {
@@ -124,16 +125,16 @@
       },
       sessionSave: function(props) {
         this._sessionState = props;
-        _.cookie.set('sensorsdata2015session', JSON.stringify(this._sessionState), 0);
+        utils.cookie.set('sensorsdata2015session', JSON.stringify(this._sessionState), 0);
       },
       save: function() {
-        _.cookie.set(this.getCookieName(), JSON.stringify(this._state), 73000, sd.para.cross_subdomain);
+        utils.cookie.set(this.getCookieName(), JSON.stringify(this._state), 73000, sd.para.cross_subdomain);
       },
       getCookieName: function() {
         var sub = '';
         if (sd.para.cross_subdomain === false) {
           try {
-            sub = _.URL(location.href).hostname;
+            sub = utils.URL(location.href).hostname;
           } catch (e) {}
           if (typeof sub === 'string' && sub !== '') {
             sub = 'sa_jssdk_2015_' + sub.replace(/\./g, '_');
@@ -148,8 +149,8 @@
       init: function() {
 
         this.initSessionState();
-        var uuid = _.UUID();
-        var cross = _.cookie.get(this.getCookieName());
+        var uuid = utils.UUID();
+        var cross = utils.cookie.get(this.getCookieName());
         if (cross === null) {
           sd.is_first_visitor = true;
 

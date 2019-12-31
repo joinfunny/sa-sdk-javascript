@@ -15,7 +15,6 @@ sd.para_default = {
     url: false
   },
   img_use_crossorigin: false,
-
   name: "sa",
   max_referrer_string_length: 200,
   max_string_length: 500,
