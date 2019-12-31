@@ -20,5 +20,25 @@
   "bugs": {
     "url": "https://github.com/sensorsdata/sa-sdk-javascript/issues"
   },
-  "homepage": "https://github.com/sensorsdata/sa-sdk-javascript#readme"
+  "homepage": "https://github.com/sensorsdata/sa-sdk-javascript#readme",
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "browser": true,
+      "node": true,
+      "jasmine": true,
+      "jest": true,
+      "es6": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {
+      "no-console": "off"
+    },
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  }
 }

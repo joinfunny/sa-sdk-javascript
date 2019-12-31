@@ -895,11 +895,6 @@
         return new URLParser(para);
       };
 
-
-
-
-
-
       _.addEvent = function() {
 
         function fixEvent(event) {
@@ -1835,9 +1830,6 @@
         }
       };
 
-
-
-
       _.autoExeQueue = function() {
         var queue = {
           items: [],
@@ -1915,8 +1907,6 @@
           });
         }
       };
-
-
 
 
     })();
